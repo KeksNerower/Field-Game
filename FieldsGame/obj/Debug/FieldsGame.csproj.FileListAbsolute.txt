@@ -1,0 +1,15 @@
+C:\Users\User\source\repos\FieldsGame\FieldsGame\bin\Debug\FieldsGame.exe.config
+C:\Users\User\source\repos\FieldsGame\FieldsGame\bin\Debug\FieldsGame.exe
+C:\Users\User\source\repos\FieldsGame\FieldsGame\bin\Debug\FieldsGame.pdb
+C:\Users\User\source\repos\FieldsGame\FieldsGame\obj\Debug\FieldsGame.csprojAssemblyReference.cache
+C:\Users\User\source\repos\FieldsGame\FieldsGame\obj\Debug\FieldsGame.Properties.Resources.resources
+C:\Users\User\source\repos\FieldsGame\FieldsGame\obj\Debug\FieldsGame.csproj.GenerateResource.cache
+C:\Users\User\source\repos\FieldsGame\FieldsGame\obj\Debug\FieldsGame.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\FieldsGame\FieldsGame\obj\Debug\FieldsGame.exe
+C:\Users\User\source\repos\FieldsGame\FieldsGame\obj\Debug\FieldsGame.pdb
+C:\Users\User\source\repos\FieldsGame\FieldsGame\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\source\repos\FieldsGame\FieldsGame\bin\Debug\websocket-sharp.dll
+C:\Users\User\source\repos\FieldsGame\FieldsGame\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\source\repos\FieldsGame\FieldsGame\bin\Debug\websocket-sharp.xml
+C:\Users\User\source\repos\FieldsGame\FieldsGame\obj\Debug\FieldsGame.csproj.CopyComplete
+C:\Users\User\source\repos\FieldsGame\FieldsGame\obj\Debug\FieldsGame.Form.resources
