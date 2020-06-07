@@ -17,6 +17,9 @@ namespace FieldsGame
 
         public List<Cell> square;
 
+        Dictionary<Color, int> reCellColors = new Dictionary<Color, int>();
+        Dictionary<Color, Control> playerScoreLbls = new Dictionary<Color, Control>();
+
         public int Number { get; private set; }
         public bool Pressed { get; private set; }
         public Color PlayerColor { get; set; }
@@ -29,6 +32,13 @@ namespace FieldsGame
             field.FieldInit(OnClick);
 
             square = new List<Cell>();
+
+            reCellColors.Add(Color.Gainsboro, 0);
+            reCellColors.Add(Color.Red, 1);
+            reCellColors.Add(Color.Blue, 2);
+
+            playerScoreLbls.Add(Color.Red, redScoreLbl);
+            playerScoreLbls.Add(Color.Blue, blueScoreLbl);
 
             Text = "FieldGame";
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -71,9 +81,14 @@ namespace FieldsGame
 
             Number = a * b;
             diceRollBtn.Enabled = false;
+            skipBtn.Enabled = true;
 
             DrawObjText(diceScoreLbl, Number);
             ws.SendToServer("Number", Number);
+        }
+        public void Skip(object sender, EventArgs e)
+        {
+            SendMap();
         }
 
         public void OnClick(object sender, EventArgs e)
@@ -115,10 +130,6 @@ namespace FieldsGame
             {
                 cellSender.BackColor = PlayerColor;
 
-                Pressed = false;
-                square.Clear();
-                Number = 0;
-
                 SendMap();
             }
 
@@ -159,7 +170,8 @@ namespace FieldsGame
                 maxY = square[0].Y;
             }
 
-            if ((maxX - minX + 1)*(maxY - minY + 1) != Number)
+            int sqr = (maxX - minX + 1) * (maxY - minY + 1);
+            if (sqr != Number)
             {
                 return;
             }
@@ -173,9 +185,9 @@ namespace FieldsGame
                         field.cells[j][i].Click -= OnClick;
                     }
                 }
-                Pressed = false;
-                square.Clear();
-                Number = 0;
+
+                Control lbl = playerScoreLbls[PlayerColor];
+                DrawObjText(lbl, Convert.ToInt32(lbl.Text) + sqr);
 
                 SendMap();
             }
@@ -184,19 +196,25 @@ namespace FieldsGame
 
         private void SendMap()
         {
+            Pressed = false;
+            square.Clear();
+            Number = 0;
+
+            skipBtn.Enabled = false;
+
             //Отправка получившейся карты Field через ws.SendToSerwer
             //FieldMap - двумерный массив с int-цветами
-            Dictionary<Color, int> reCellColors = new Dictionary<Color, int>();
-            reCellColors.Add(Color.Gainsboro, 0);
-            reCellColors.Add(Color.Red, 1);
-            reCellColors.Add(Color.Blue, 2);
-
+           
+            //int score = 0;
             int[,] fieldMap = new int[field.Rows, field.Columns];
             for (int i = 0; i < field.Rows; i++)
             {
                 for (int j = 0; j < field.Columns; j++)
                 {
                     fieldMap[i, j] = reCellColors[field.cells[i][j].BackColor];
+
+                    //if (field.cells[i][j].BackColor == PlayerColor)
+                    //    score++;
                 }
             }
 
@@ -228,6 +246,17 @@ namespace FieldsGame
             };
             diceRollBtn.Click += RollDice;
 
+            skipBtn = new Button()
+            {
+                Height = 50,
+                Width = 50,
+                Location = new Point(this.Width - 240, 5),
+                BackColor = Color.Gainsboro,
+                Text = "Skip",
+                Enabled = false
+            };
+            skipBtn.Click += Skip;
+
             redScoreLbl = new Label()
             {
                 Height = 60,
@@ -257,7 +286,7 @@ namespace FieldsGame
                 Text = "Dise Score"
             };
 
-            base.Draw(diceRollBtn, redScoreLbl, blueScoreLbl, diceScoreLbl);
+            base.Draw(diceRollBtn, skipBtn, redScoreLbl, blueScoreLbl, diceScoreLbl);
             base.Draw(field.cells);
 
         }

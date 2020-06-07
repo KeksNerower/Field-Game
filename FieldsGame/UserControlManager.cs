@@ -11,6 +11,7 @@ namespace FieldsGame
     class UserControlManager : Form
     {
         public Button diceRollBtn;
+        public Button skipBtn;
         public Label redScoreLbl;
         public Label blueScoreLbl;
         public Label diceScoreLbl;
